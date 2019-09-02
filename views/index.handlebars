@@ -1,0 +1,30 @@
+<h1>Hello</h1>
+<input id="burger-input"></input>
+<button id="save-button">SAVE</button>
+<ul>
+  {{#each burgers}}
+     
+   <h1>{{this.burger_name}}</h1>
+   {{#unless devoured}} 
+   <button id="devoured-button">devoured</button>
+   {{/unless}}
+  {{/each}}
+</ul>
+<script type="text/javascript">
+    $("#save-button").on("click", function () {
+        var newBurger = {
+            burger_name: $("#burger-input").val().trim(),
+            devoured: false
+        }
+
+        console.log(newBurger);
+        $.ajax({
+            url: "/save",
+            type: "POST",
+            data: newBurger
+        }).then(function (data) {
+            console.log("We got this back ", data);
+        })
+    })
+
+</script>
